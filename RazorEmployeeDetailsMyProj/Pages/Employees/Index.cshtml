@@ -1,0 +1,68 @@
+﻿@page
+@model RazorEmployeeDetailsMyProj.Pages.Employees.IndexModel
+@{
+
+
+}
+
+<h1> Employee Details @Model.Employeesprop.Count() </h1>
+<style>
+    .btn {
+        width: 75px;
+    }
+
+    .imageThumbnailstr {
+        height: 200px;
+        width: auto;
+    }
+</style>
+
+<form method="get">
+    <div class="input-group">
+<input class="form-control" asp-for="SearchTerm" />
+<div class="input-group-append">
+    <button type ="submit" class="btn btn-primary">Search</button>
+</div>
+  </div>
+</form>
+
+<div class="col-sm-8">
+    @await Component.InvokeAsync("HeadCount")
+</div>
+
+
+<h1>Employees</h1>
+
+<div class="card-deck">
+    @foreach (var employeeloopvar in Model.Employeesprop)
+    {
+        var photoPath = "~/images/" + (employeeloopvar.PhotoPath ?? "red.jpg");
+        <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+            <div class="card-header">
+                <h3>@employeeloopvar.Name</h3>
+            </div>
+
+            <img class="card-img-top img-thumbnail imageThumbnailstr" src="@photoPath"
+                 asp-append-version="true" />
+
+            <div class="card-footer text-center">
+                <a asp-page="/Employees/Details" asp-route-ID="@employeeloopvar.Id"
+                   class="btn btn-primary m-1">View</a>
+                @*<a href="#" class="btn btn-primary m-1">View</a>*@
+                @*<a href="#" class="btn btn-primary m-1">Edit</a>*@
+                <a asp-page="/Employees/Edit" asp-route-ID="@employeeloopvar.Id" class="btn btn-primary m-1">Edit</a>
+
+
+                <a asp-page="/Employees/EditEmp" asp-route-ID="@employeeloopvar.Id"
+                   class="btn btn-primary m-1">EditEmp</a>
+
+                <a asp-page="/Employees/EditTrial" asp-route-ID="@employeeloopvar.Id"
+                   class="btn btn-primary m-1">EditTrial</a>
+
+                @*<a href="#" class="btn btn-danger m-1">Delete</a>*@
+                <a asp-page="/Employees/Delete" asp-route-ID="@employeeloopvar.Id"
+                   class="btn btn-danger m-1">Delete</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,68 @@
+﻿@page "/employees/view/{id:range(1,100)}"
+@model RazorEmployeeDetailsMyProj.Pages.Employees.DetailsModel
+@{
+
+}
+<h1>Details</h1>
+@{
+    ViewData["Title"] = "Details";
+    var photoPath = "~/images/" + (Model.Employeepropdetail.PhotoPath ?? "red.jpg");
+}
+
+<div class="row justify-content-center m-3">
+
+    @*@if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="col-sm-8">
+                <div class="alert alert-primary">
+                    @Model.Message
+                </div>
+            </div>
+        }*@
+
+    @if (TempData["message"] != null)
+    {
+        <div class="col-sm-8">
+            <div class="alert alert-primary">
+                @TempData["message"]
+            </div>
+        </div>
+    }
+
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h1>@Model.Employeepropdetail.Name</h1>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-sm-8">
+                @await Component.InvokeAsync("HeadCount", new { department = Model.Employeepropdetail.Department })
+
+            </div>
+
+
+
+
+            <div class="card-body text-center">
+                <img class="card-img-top" src="@photoPath" asp-append-version="true" />
+
+                <h4>Employee ID : @Model.Employeepropdetail.Id</h4>
+                <h4>Email : @Model.Employeepropdetail.Email</h4>
+                <h4>Department : @Model.Employeepropdetail.Department</h4>
+
+            </div>
+            <div class="card-footer text-center">
+                <a asp-page="index"
+                   class="btn btn-primary">Back</a>
+                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
